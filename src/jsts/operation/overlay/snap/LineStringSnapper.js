@@ -147,7 +147,7 @@
    */
   LineStringSnapper.prototype.snapSegments = function(srcCoords, snapPts) {
     // guard against empty input
-    if (snapPts.length == 0) {
+    if (snapPts.length === 0) {
       return;
     }
 
@@ -156,7 +156,7 @@
     // check for duplicate snap pts when they are sourced from a linear ring.
     // TODO: Need to do this better - need to check *all* snap points for dups
     // (using a Set?)
-    if (snapPts.length > 1 && snapPts[0].equals(snapPts[snapPts.length - 1])) {
+    if (snapPts.length>1 && snapPts[0].equals2D(snapPts[snapPts.length - 1])) {
       distinctPtCount = snapPts.length - 1;
     }
 
@@ -171,8 +171,7 @@
        * points are not added.
        */
       if (index >= 0) {
-        srcCoords.add(index + 1, new jsts.geom.Coordinate(snapPt),
-            false);
+        srcCoords.add(index + 1, new jsts.geom.Coordinate(snapPt), false);
       }
     }
   };

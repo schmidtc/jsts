@@ -18,6 +18,8 @@
  * @constructor
  */
 jsts.geom.CoordinateList = function(coord, allowRepeated) {
+  javascript.util.ArrayList.apply(this, arguments);
+  
   allowRepeated = (allowRepeated === undefined) ? true : allowRepeated;
 
   if (coord !== undefined) {
@@ -123,7 +125,7 @@ jsts.geom.CoordinateList.prototype.insertCoordinate = function(index, coord,
  */
 jsts.geom.CoordinateList.prototype.closeRing = function() {
   if (this.size() > 0) {
-    this.addCoordinate(new jsts.geom.Coordinate(this[0]), false);
+    this.addCoordinate(new jsts.geom.Coordinate(this.get(0)), false);
   }
 };
 
