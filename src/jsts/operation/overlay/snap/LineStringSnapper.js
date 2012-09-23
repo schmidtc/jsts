@@ -88,7 +88,7 @@
     this.snapVertices(coordList, snapPts);
     this.snapSegments(coordList, snapPts);
 
-    return coordList;
+    return coordList.toCoordinateArray();
   };
 
   /**
@@ -102,16 +102,16 @@
   LineStringSnapper.prototype.snapVertices = function(srcCoords, snapPts) {
     // try snapping vertices
     // if src is a ring then don't snap final vertex
-    var end = this.isClosed ? srcCoords.length - 1 : srcCoords.length, i = 0, srcPt, snapVert;
+    var end = this.isClosed ? srcCoords.size() - 1 : srcCoords.size(), i = 0, srcPt, snapVert;
     for (i; i < end; i++) {
-      srcPt = srcCoords[i];
+      srcPt = srcCoords.get(i);
       snapVert = this.findSnapForVertex(srcPt, snapPts);
       if (snapVert !== null) {
         // update src with snap pt
-        srcCoords[i] = new jsts.geom.Coordinate(snapVert);
+        srcCoords.set(i, new jsts.geom.Coordinate(snapVert));
         // keep final closing point in synch (rings only)
         if (i === 0 && this.isClosed)
-          srcCoords[srcCoords.length - 1] = new jsts.geom.Coordinate(snapVert);
+          srcCoords.set(srcCoords.size() - 1, new jsts.geom.Coordinate(snapVert));
       }
     }
   };
@@ -171,7 +171,7 @@
        * points are not added.
        */
       if (index >= 0) {
-        srcCoords.insertCoordinate(index + 1, new jsts.geom.Coordinate(snapPt),
+        srcCoords.add(index + 1, new jsts.geom.Coordinate(snapPt),
             false);
       }
     }
@@ -199,9 +199,9 @@
   LineStringSnapper.prototype.findSegmentIndexToSnap = function(snapPt,
       srcCoords) {
     var minDist = Number.MAX_VALUE, snapIndex = -1, i = 0, dist;
-    for (i; i < srcCoords.length - 1; i++) {
-      this.seg.p0 = srcCoords[i];
-      this.seg.p1 = srcCoords[i + 1];
+    for (i; i < srcCoords.size() - 1; i++) {
+      this.seg.p0 = srcCoords.get(i);
+      this.seg.p1 = srcCoords.get(i + 1);
 
       /**
        * Check if the snap pt is equal to one of the segment endpoints.
