@@ -15,7 +15,7 @@
  * @requires jsts/geom/MultiPolygon.js
  * @requires jsts/geom/Point.js
  * @requires jsts/geom/Polygon.js
- * @requires jsts/geom/geometry.js
+ * @requires jsts/geom/Geometry.js
  */
 
 
@@ -297,7 +297,7 @@
     /**
      * Serialize a Geometry object into GeoJSON
      *
-     * @param {jsts.geom.geometry}
+     * @param {jsts.geom.Geometry}
      *          geometry A Geometry or array of Geometries.
      * @return {Object} A GeoJSON object represting the input Geometry/Geometries.
      */
