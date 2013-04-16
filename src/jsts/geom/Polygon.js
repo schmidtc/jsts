@@ -217,6 +217,13 @@
   };
 
   /**
+   * @return {String} String representation of Polygon type.
+   */
+  jsts.geom.Polygon.prototype.getGeometryType = function() {
+    return 'Polygon';
+  };
+
+  /**
    * Creates and returns a full copy of this {@link Polygon} object. (including
    * all coordinates contained by it).
    *
